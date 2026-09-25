@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Jogo da cobrinha educativo sobre educacao fisica e consciencia corporal.">
+  <title>Cobrinha em Movimento</title>
+  <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+  <div class="crt-shell">
+    <header class="cabecalho">
+      <div>
+        <p class="eyebrow">ARCADE EDUCATIVO</p>
+        <h1>COBRINHA EM MOVIMENTO</h1>
+        <p class="versao">VERSAO <span data-versao>1.0.0</span></p>
+      </div>
+      <button id="botao-som" class="botao botao-icone" type="button" aria-pressed="false" aria-label="Ativar som">SOM: OFF</button>
+    </header>
+
+    <div id="aviso-conteudo" class="aviso" role="alert" hidden></div>
+
+    <main>
+      <section id="tela-inicial" class="tela tela-ativa" aria-labelledby="titulo-inicial">
+        <div class="painel-intro">
+          <p class="placar-grande">APRENDA. GUIE. CRESCA.</p>
+          <h2 id="titulo-inicial">Pegue a resposta certa.</h2>
+          <p>Use as setas, WASD ou deslize o dedo. A cobrinha se move sem parar.</p>
+          <button id="botao-iniciar" class="botao botao-principal" type="button">INICIAR PARTIDA</button>
+        </div>
+        <section class="ranking" aria-labelledby="titulo-ranking-inicial">
+          <h2 id="titulo-ranking-inicial">TOP 10 LOCAL</h2>
+          <ol id="lista-ranking-inicial"></ol>
+          <p id="aviso-ranking-inicial" class="texto-suave" hidden></p>
+        </section>
+      </section>
+
+      <section id="tela-jogo" class="tela" aria-labelledby="pergunta">
+        <div class="barra-status">
+          <div><span class="rotulo">PONTOS</span><strong id="placar">0000</strong></div>
+          <div><span class="rotulo">VIDAS</span><strong id="vidas">3</strong></div>
+          <div><span class="rotulo">RODADA</span><strong id="rodada">01</strong></div>
+        </div>
+        <div class="pergunta-painel">
+          <p class="rotulo">PERGUNTA</p>
+          <h2 id="pergunta" aria-live="polite">Carregando pergunta...</h2>
+          <p id="feedback" class="feedback" role="status" aria-live="polite"></p>
+        </div>
+        <div id="tabuleiro" class="tabuleiro" role="application" aria-label="Tabuleiro da cobrinha"></div>
+        <p class="controles">SETAS / WASD: MOVER <span aria-hidden="true">•</span> M: SOM</p>
+      </section>
+
+      <section id="tela-fim" class="tela" aria-labelledby="titulo-fim">
+        <div class="fim-cabecalho">
+          <p class="eyebrow">FIM DE JOGO</p>
+          <h2 id="titulo-fim">Sua pontuacao</h2>
+          <p id="pontuacao-final" class="placar-grande">0000</p>
+        </div>
+        <section class="revisao" aria-labelledby="titulo-revisao">
+          <h2 id="titulo-revisao">REVISAO DOS ERROS</h2>
+          <div id="lista-erros"></div>
+        </section>
+        <form id="form-ranking" class="form-ranking">
+          <label for="iniciais">SEU LUGAR NO TOP 10? <span>(3 LETRAS)</span></label>
+          <div class="linha-form">
+            <input id="iniciais" name="iniciais" maxlength="3" pattern="[A-Za-z]{3}" autocomplete="off" aria-describedby="ajuda-iniciais">
+            <button class="botao" type="submit">SALVAR</button>
+          </div>
+          <p id="ajuda-iniciais" class="texto-suave">Use tres letras, como ABC.</p>
+        </form>
+        <p id="aviso-ranking-fim" class="aviso" role="status" hidden></p>
+        <button id="botao-jogar-novamente" class="botao botao-principal" type="button">JOGAR NOVAMENTE</button>
+      </section>
+    </main>
+
+    <footer class="rodape">CONTEUDO MULTIDISCIPLINAR <span aria-hidden="true">//</span> OFFLINE <span aria-hidden="true">//</span> <span data-versao>1.0.0</span></footer>
+  </div>
+  <script src="versao.js"></script>
+  <script src="perguntas.js"></script>
+  <script src="persistencia.js"></script>
+  <script src="audio.js"></script>
+  <script src="renderizador.js"></script>
+  <script src="jogo.js"></script>
+</body>
+</html>

@@ -1,3 +1,12 @@
+<!--
+Sync Impact Report
+- Version change: 2.1.0 -> 2.2.0
+- Modified principles: none in Part I
+- Added sections: expanded Part II subject-area rule for the multidisciplinary question bank
+- Removed sections: none
+- Follow-up TODOs: none
+-->
+
 # Arcade-IFES Games Constitution
 
 ## Part I — Arcade-IFES Common Rules
@@ -78,8 +87,22 @@ requires a written rationale and reviewer approval.
 
 ## Part II — Game-Specific Rules
 
-This part is intentionally empty in the central repository. Each game repository MUST fill it with the rules
-that apply only to that game, and it MUST at least state the game's difficulty model, controls, supported
-devices, scoring model, subject area, and target audience.
+### Educational Snake Rules
 
-**Version**: 2.0.0 | **Ratified**: 2026-09-19 | **Last Amended**: 2026-09-19
+- **Difficulty model**: Each round presents one question with exactly three or four alternatives. The
+	game begins with three lives, increases the score for correct answers, and deducts points without
+	removing a life for a wrong answer. A collision with a wall or the snake body ends the match.
+- **Controls**: The snake MUST respond to arrow keys, WASD, and touch swipes. A reverse-direction
+	command MUST be ignored when it would immediately collide with the snake body.
+- **Supported devices**: The game MUST work offline in current desktop browsers with keyboard input and
+	mobile browsers with touch input. A player MUST be able to complete a match without a network connection.
+- **Scoring model**: A correct answer adds 100 points and one snake segment. A wrong answer subtracts
+	25 points, never below zero, records the question for review, and keeps the round active until the
+	correct answer is collected.
+- **Subject area**: Multidisciplinary secondary education, using original Brazilian Portuguese content across mathematics, physics, chemistry, biology, Portuguese, history, geography, philosophy, English, programming, web development, data, networks, and systems.
+- **Target audience**: Brazilian Portuguese-speaking students in classroom or self-study sessions,
+	typically ages 12 and above.
+- **Session model**: A match MUST expose the current question, score, lives, mute state, and version;
+	it MUST show the correct explanation after every collected answer and review mistakes on game over.
+
+**Version**: 2.2.0 | **Ratified**: 2026-09-19 | **Last Amended**: 2026-09-24

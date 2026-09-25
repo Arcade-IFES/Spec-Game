@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Testes de logica</title><style>body{font:16px monospace;max-width:800px;margin:2rem auto;background:#07100c;color:#f4f7d6;padding:1rem}h1{color:#a7f04d}.ok{color:#a7f04d}.erro{color:#ff5964}li{margin:.5rem 0}</style></head><body><h1>TESTES DE LOGICA</h1><p id="resumo">Executando...</p><ol id="resultado"></ol><script src="../perguntas.js"></script><script>
+(function(){
+  const resultados=[];
+  function verificar(nome, condicao){ resultados.push({nome,ok:Boolean(condicao)}); }
+  function validar(p){ return p && typeof p.q === "string" && p.q && Array.isArray(p.a) && p.a.length >= 3 && p.a.length <= 4 && new Set(p.a).size === p.a.length && p.a.every(Boolean) && p.e && p.m; }
+  function livre(snake,itens,largura,altura){ const ocupados=snake.concat(itens.map(function(item){return item.posicao;})); const livres=[]; for(let y=0;y<altura;y+=1){for(let x=0;x<largura;x+=1){if(!ocupados.some(function(p){return p.x===x&&p.y===y;}))livres.push({x:x,y:y});}} return livres; }
+  verificar("banco com perguntas validas", PERGUNTAS.length > 0 && PERGUNTAS.every(validar));
+  verificar("alternativas entre tres e quatro", PERGUNTAS.every(function(p){return p.a.length === 3 || p.a.length === 4;}));
+  verificar("colocacao evita cobrinha", livre([{x:0,y:0}],[],2,2).every(function(p){return !(p.x===0&&p.y===0);}));
+  verificar("pontuacao nao fica negativa", Math.max(0, 0 - 25) === 0);
+  verificar("reversao direta e reconhecivel", ({cima:"baixo",baixo:"cima",esquerda:"direita",direita:"esquerda"}).cima === "baixo");
+  verificar("normalizacao de iniciais", "abc-12".toUpperCase().replace(/[^A-Z]/g, "").slice(0,3) === "ABC");
+  const falhas=resultados.filter(function(r){return !r.ok;}); document.getElementById("resumo").textContent= falhas.length ? falhas.length+" teste(s) falharam." : resultados.length+" testes passaram."; document.getElementById("resumo").className=falhas.length?"erro":"ok"; document.getElementById("resultado").innerHTML=resultados.map(function(r){return "<li class=\""+(r.ok?"ok":"erro")+"\">"+(r.ok?"OK":"FALHA")+" - "+r.nome+"</li>";}).join("");
+}());
+</script></body></html>

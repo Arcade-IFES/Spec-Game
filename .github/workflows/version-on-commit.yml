@@ -1,0 +1,50 @@
+name: Versionar jogo a cada commit
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+permissions:
+  contents: write
+
+concurrency:
+  group: versionar-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  versionar:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Incrementar versao PATCH
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          versao_atual="$(tr -d '[:space:]' < VERSION)"
+          if [[ ! "$versao_atual" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "VERSION deve seguir MAJOR.MINOR.PATCH: $versao_atual" >&2
+            exit 1
+          fi
+
+          IFS=. read -r major minor patch <<< "$versao_atual"
+          nova_versao="$major.$minor.$((patch + 1))"
+
+          printf '%s\n' "$nova_versao" > VERSION
+          printf 'window.VERSAO_JOGO = "%s";\n' "$nova_versao" > versao.js
+          sed -i -E "s/(Versão atual: \*\*)[0-9]+\.[0-9]+\.[0-9]+/\1$nova_versao/" README.md
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add VERSION versao.js README.md
+          git commit -m "chore(release): v$nova_versao [skip ci]"
+          git tag -a "v$nova_versao" -m "Release v$nova_versao"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git push origin "v$nova_versao"
