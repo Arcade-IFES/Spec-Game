@@ -1,1 +1,1 @@
-window.VERSAO_JOGO = "1.0.0";
+window.VERSAO_JOGO = "1.0.1";
